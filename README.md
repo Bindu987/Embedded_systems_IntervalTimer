@@ -33,6 +33,8 @@ The work is divided into three parts:
 
 └── top.v # Top-level module (board I/O mapping)
 
+└──binduhw3_time_limited.sof (after compilation, board friendly file for programming)
+
 /software
 
 ├── stopwatch.c # Part A: Stopwatch
