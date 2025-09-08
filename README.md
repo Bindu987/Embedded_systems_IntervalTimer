@@ -1,3 +1,105 @@
 https://drive.google.com/file/d/11NWKZFB3jSmU6Wi7Rp_fUm9wV7M1lwJE/view
 
 drive link
+
+
+# Interval Timer Experiment
+
+This project was completed as part of Course work in **Embedded System Design** at California State University, Fresno.  
+It demonstrates how to use the **Interval Timer** with a **Nios II processor** on the **DE1-SoC FPGA board**.  
+
+The work is divided into three parts:
+- **Part A:** Stopwatch – measure how long a button is pressed  
+- **Part B:** Timeout Detection – detect 5 seconds of inactivity  
+- **Part C:** Period Measurement & Repeat – measure time between two presses and repeat every 5 seconds  
+
+---
+
+## 📂 Repository Structure
+
+/quartus_project
+├── binduhw3.qpf # Quartus project file
+├── binduhw3.qsf # Pin assignments for DE1-SoC
+├── binduhw3.qsys # Platform Designer system
+├── binduhw3.sopcinfo # SOPC system info
+├── binduhw3.qip # Quartus IP file
+├── binduhw3.v # System HDL wrapper
+└── top.v # Top-level module (board I/O mapping)
+/software
+├── stopwatch.c # Part A: Stopwatch
+├── watchdog.c # Part B: Timeout detection
+└── period.c # Part C: Period measurement & repeat
+/report
+└── ECE_278_homework3.pdf # Final report
+
+
+---
+
+## 🛠 Hardware System
+
+- **CPU:** `nios2_gen2_0`  
+- **Timers:**  
+  - `high_resol_timer_1` → used with timestamp API (Parts A, B)  
+  - `timer_0` → used with direct register access (Part C)  
+- **Peripherals:**  
+  - `leds` – 10 red LEDs  
+  - `keys` – 4 push buttons (active-low)  
+  - `hex0`, `hex1`, `hex2`, `hex3`, `hex_4`, `hex_5` – six 7-seg displays  
+  - `sdram` – external memory  
+  - `jtag_uart_0` – console I/O  
+- **Top entity:** `top.v` connects board I/O to the system  
+- **Pin file:** `binduhw3.qsf` assigns pins for DE1-SoC  
+
+---
+
+## 💻 Software Programs
+
+### Part A – Stopwatch (`stopwatch.c`)
+- Uses **timestamp API** (`alt_timestamp_start()`, `alt_timestamp_freq()`)  
+- **KEY2:** press → start, release → stop  
+- Elapsed time:  
+  - Lower bits on `LEDR[9:0]`  
+  - Full value on HEX displays (`HEX0–HEX5`)  
+
+### Part B – Timeout Detection (`watchdog.c`)
+- Tracks inactivity with **timestamp API**  
+- If **KEY3** not pressed for 5 seconds → `LEDR9` turns on  
+- Pressing KEY3 clears LEDR9 and restarts timer  
+
+### Part C – Period Measurement & Repeat (`period.c`)
+- Uses **Interval Timer registers** at `TIMER_0_BASE`  
+- **KEY1:** first press → `t1`, second press → `t2`  
+- Displays duration in ticks and approx. seconds  
+- Then repeats every 5 seconds: `LEDR7` blinks to show cycle  
+
+---
+
+## ▶️ How to Run
+
+1. Open **Quartus Prime 18.1**  
+2. Load `binduhw3.qpf` → Platform Designer (qsys) →  Generate HDL
+3. In Quartus prime → Compile top level module → Generate `.sof` file  
+4. Program the DE1-SoC board with USB-Blaster
+5. In **Nios II SBT for Eclipse**:  
+   - Create separate **BSP + Application** for each file:  
+     - `stopwatch.c`  
+     - `watchdog.c`  
+     - `period.c`  
+   - Build and run each application  
+6. Test on board using push buttons and observe LED/HEX outputs  
+
+---
+## 📑 Report
+
+The full report with diagrams, results, and explanations is here:  
+[`/report/ECE_278_homework3.pdf`](report/ECE_278_homework3.pdf)
+
+---
+
+## 🎓 Key Learnings
+
+- Configuring and using the **Interval Timer** in both HAL API and register modes  
+- Handling active-low push buttons and driving LEDs/HEX displays  
+- Creating clean BSP + Application projects for different use-cases  
+- End-to-end workflow: Quartus → Platform Designer → Nios II  
+
