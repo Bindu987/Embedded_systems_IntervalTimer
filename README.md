@@ -18,18 +18,31 @@ The work is divided into three parts:
 ## 📂 Repository Structure
 
 /quartus_project
+
 ├── binduhw3.qpf # Quartus project file
+
 ├── binduhw3.qsf # Pin assignments for DE1-SoC
+
 ├── binduhw3.qsys # Platform Designer system
+
 ├── binduhw3.sopcinfo # SOPC system info
+
 ├── binduhw3.qip # Quartus IP file
+
 ├── binduhw3.v # System HDL wrapper
+
 └── top.v # Top-level module (board I/O mapping)
+
 /software
+
 ├── stopwatch.c # Part A: Stopwatch
+
 ├── watchdog.c # Part B: Timeout detection
+
 └── period.c # Part C: Period measurement & repeat
+
 /report
+
 └── ECE_278_homework3.pdf # Final report
 
 
