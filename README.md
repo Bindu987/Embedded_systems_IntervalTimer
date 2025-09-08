@@ -20,7 +20,6 @@ The work is divided into three parts:
 /quartus_project
 
 ├── binduhw3.qpf # Quartus project file
-
 ├── binduhw3.qsf # Pin assignments for DE1-SoC
 
 ├── binduhw3.qsys # Platform Designer system
