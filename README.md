@@ -1,7 +1,7 @@
 
 # Interval Timer Experiment
 
-This project was completed as part of Course work in **Embedded System Design** at California State University, Fresno.  
+This Work was completed as part of Course work in **Embedded System Design** at California State University, Fresno.  
 It demonstrates how to use the **Interval Timer** with a **Nios II processor** on the **DE1-SoC FPGA board**.  
 
 The work is divided into three parts:
