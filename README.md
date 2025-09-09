@@ -41,7 +41,7 @@ The work is divided into three parts:
 
 /report
 
-└── ECE_278_homework3.pdf # Final report
+└── IntervalTimer_hw3.pdf # Final report
 
 
 ---
